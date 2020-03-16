@@ -18,18 +18,18 @@ public class AdminLoginController {
 	private AdminLoginService adminLoginService;
 	
 	@ResponseBody
-	@PostMapping("/login")
-	public String checkAdminLogin(
+	@PostMapping("/login/admin")
+	public Admin checkAdminLogin(
 			@RequestParam(name = "tellphone", required = true) String tellphone,
 			@RequestParam(value = "password", required = true) String password) {
 //		return "100000";
 //		System.out.println("账号："+tellphone+" 密码："+password);
-		Admin admin = this.adminLoginService.checkLogin(tellphone, password);
+		Admin admin = this.adminLoginService.checkLoginAdmin(tellphone, password);
 		if(admin == null) {
-			return "100001";
+			return null;
 		}else {
-//			System.out.println(admin.getAdminName());
-			return "100000";
+			admin.setAdminPassWord(null);
+			return admin;
 		}
 	}
 	

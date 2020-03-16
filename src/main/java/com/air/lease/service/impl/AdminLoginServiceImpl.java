@@ -13,7 +13,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 	@Autowired
 	private AdminLoginRepository adminLoginRepository;
 	@Override
-	public Admin checkLogin(String adminTellPhone, String adminPassWord) {
+	public Admin checkLoginAdmin(String adminTellPhone, String adminPassWord) {
 		// TODO 自动生成的方法存根 可能存在空指针!!!
 //		if("".equals(tellphone) && "".equals(password)) {
 //			return;
