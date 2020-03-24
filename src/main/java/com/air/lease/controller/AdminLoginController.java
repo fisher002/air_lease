@@ -28,7 +28,7 @@ public class AdminLoginController {
 		if(admin == null) {
 			return null;
 		}else {
-			admin.setAdminPassWord(null);
+			admin.setAdminPassWord("");
 			return admin;
 		}
 	}

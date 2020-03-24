@@ -49,14 +49,8 @@ public class UserLoginController {
 			@RequestParam(name = "tellphone", required = true) String tellphone,
 			@RequestParam(value = "password", required = true) String password) {
 		User user = this.userLoginService.checkUserLogin(tellphone, password);
-//		if(user == null) {
-//			return null;
-//		}else {
-//			user.setPassword(null);
-//			return user;
-//		}
-		user.setPassword(null);
-		return user != null ? user : null;
+		// 密码加密再返回(未处理)
+		return user == null ? null : user;
 	}
 
 }
