@@ -2,6 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+<<<<<<< HEAD
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
@@ -27,26 +28,92 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-redis-reactive</artifactId>
 		</dependency>
+=======
+	<!-- 继承Spring Boot的父项目，可以利用Spring Boot的依赖管理功能，减少后面的配置量 -->
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.1.3.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<!-- 当前项目的信息 -->
+	<!-- 分组的ID，通常是公司的域名倒写 -->
+	<groupId>com.air</groupId>
+	<!-- 项目名称 -->
+	<artifactId>lease</artifactId>
+	<!-- 项目版本号 -->
+	<version>0.0.1-SNAPSHOT</version>
+	<!-- 项目显示名称，但是Eclipse中无效 -->
+	<name>lease</name>
+	<!-- 项目描述 -->
+	<description>空调租赁测试系统</description>
+	
+	<!-- 项目的属性配置 -->
+	<properties>
+		<!-- 指定JDK的版本，可选的是1.8、9、10、11 -->
+		<!-- 只有在Spring Boot中，才能直接使用java.version，因为Spring Boot在父项目里面进行简化 -->
+		<java.version>11</java.version>
+		<!-- 源代码的字符编码，由于大家的开发环境都是Windows，默认GBK，而服务器默认UTF-8 -->
+		<!-- 所以必须设置字符编码，否则乱码！ -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<!-- 生成的报告文件的字符编码 -->
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+	</properties>
+
+	<dependencies>
+		<!-- Jackson原本是用于Java和JSON相互转换的，后来为了实现Java和XML的转换，增加了jackson-dataformat-xml -->
+		<!-- 如果要使用Jackson，那么就用这个转换器即可！ -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-xml</artifactId>
+		</dependency>
+		
+		<!-- mybatis依赖 -->
+        <dependency>
+        	<groupId>org.mybatis.spring.boot</groupId>
+        	<artifactId>mybatis-spring-boot-starter</artifactId>
+        	<version>1.2.0</version>
+        </dependency>
+		<!-- 用于访问关系数据库，不需要写SQL语句、不要自己创建数据库表、能够自动根据接口的方法名称生成查询语句 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<!-- 自动配置Spring MVC -->
+>>>>>>> b9d553927d9ad20a99dda1a6f1ea986e056412de
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+<<<<<<< HEAD
 
+=======
+		<!-- 开发者工具，用于实现热部署，在修改文件以后马上能够生效 -->
+>>>>>>> b9d553927d9ad20a99dda1a6f1ea986e056412de
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
+<<<<<<< HEAD
+=======
+		<!-- 数据库驱动 -->
+>>>>>>> b9d553927d9ad20a99dda1a6f1ea986e056412de
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+<<<<<<< HEAD
+=======
+		<!-- Spring Boot的测试支持 -->
+>>>>>>> b9d553927d9ad20a99dda1a6f1ea986e056412de
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+<<<<<<< HEAD
 			<exclusions>
 				<exclusion>
 					<groupId>org.junit.vintage</groupId>
@@ -59,13 +126,69 @@
 			<artifactId>reactor-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+=======
+		</dependency>
+		<!-- 单元测试框架 -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<!-- <version>4.12</version> -->
+			<scope>test</scope>
+		</dependency>
+		<!-- 加入Servlet API的依赖 -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<!-- Tomcat自带的，不要打包 -->
+			<scope>provided</scope>
+		</dependency>
+		<!-- 激活完整版的Tomcat，支持JSP -->
+		<!-- 增加JSP支持 -->
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
+			<!-- 如果在Tomcat里面运行，那么是由Tomcat提供的 -->
+			<!-- 如果在mvn命令直接运行，该依赖也会加入类路径 -->
+			<scope>provided</scope>
+		</dependency>
+		<!-- jstl依赖 EL表达式 -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+		<!-- ibatis依赖 -->
+		<dependency>
+            <groupId>org.apache.ibatis</groupId>
+            <artifactId>ibatis-core</artifactId>
+            <version>3.0</version>
+        </dependency>
+>>>>>>> b9d553927d9ad20a99dda1a6f1ea986e056412de
 	</dependencies>
 
 	<build>
 		<plugins>
+<<<<<<< HEAD
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+=======
+			<!-- Spring Boot提供的打包插件，能够在把项目打包的时候，自动把依赖的jar文件一并打包 -->
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<!-- 可以打包成一个可执行jar文件 -->
+					<executable>true</executable>
+					<!-- fork为true的时候 -->
+					<!-- 将可以使用 mvn spring-boot:start 启动程序 -->
+					<!-- 并且可以使用 mvn spring-boot:stop 停止程序 -->
+					<fork>true</fork>
+					<!-- 每个fork出来的进程都会需要一个JMX端口，不能重复 -->
+					<!-- 建议：每个人使用一段的端口号，比如阿宝使用 9001~9099，小宝使用9100~9199 -->
+					<jmxPort>10006</jmxPort>
+				</configuration>
+>>>>>>> b9d553927d9ad20a99dda1a6f1ea986e056412de
 			</plugin>
 		</plugins>
 	</build>
