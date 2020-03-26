@@ -2,6 +2,33 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+<<<<<<< HEAD
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.2.5.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>com.air</groupId>
+	<artifactId>lease</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>lease</name>
+	<description>空调租赁测试系统</description>
+
+	<properties>
+		<java.version>11</java.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis-reactive</artifactId>
+		</dependency>
+=======
 	<!-- 继承Spring Boot的父项目，可以利用Spring Boot的依赖管理功能，减少后面的配置量 -->
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -53,28 +80,53 @@
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 		<!-- 自动配置Spring MVC -->
+>>>>>>> b9d553927d9ad20a99dda1a6f1ea986e056412de
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+<<<<<<< HEAD
+
+=======
 		<!-- 开发者工具，用于实现热部署，在修改文件以后马上能够生效 -->
+>>>>>>> b9d553927d9ad20a99dda1a6f1ea986e056412de
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
+<<<<<<< HEAD
+=======
 		<!-- 数据库驱动 -->
+>>>>>>> b9d553927d9ad20a99dda1a6f1ea986e056412de
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+<<<<<<< HEAD
+=======
 		<!-- Spring Boot的测试支持 -->
+>>>>>>> b9d553927d9ad20a99dda1a6f1ea986e056412de
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+<<<<<<< HEAD
+			<exclusions>
+				<exclusion>
+					<groupId>org.junit.vintage</groupId>
+					<artifactId>junit-vintage-engine</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>io.projectreactor</groupId>
+			<artifactId>reactor-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+=======
 		</dependency>
 		<!-- 单元测试框架 -->
 		<dependency>
@@ -111,10 +163,16 @@
             <artifactId>ibatis-core</artifactId>
             <version>3.0</version>
         </dependency>
+>>>>>>> b9d553927d9ad20a99dda1a6f1ea986e056412de
 	</dependencies>
 
 	<build>
 		<plugins>
+<<<<<<< HEAD
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+=======
 			<!-- Spring Boot提供的打包插件，能够在把项目打包的时候，自动把依赖的jar文件一并打包 -->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -130,6 +188,7 @@
 					<!-- 建议：每个人使用一段的端口号，比如阿宝使用 9001~9099，小宝使用9100~9199 -->
 					<jmxPort>10006</jmxPort>
 				</configuration>
+>>>>>>> b9d553927d9ad20a99dda1a6f1ea986e056412de
 			</plugin>
 		</plugins>
 	</build>
