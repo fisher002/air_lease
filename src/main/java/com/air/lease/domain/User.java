@@ -20,7 +20,7 @@ public class User {
 		@GenericGenerator(name = "uuid2", strategy = "uuid2")
 		@GeneratedValue(generator = "uuid2")
 		@Column(name = "u_id")
-		private String userid;
+		private String userId;
 		// 用户名
 		@Column(name = "username", nullable = false, length = 60)
 		private String username;
@@ -30,6 +30,9 @@ public class User {
 		// 密码
 		@Column(name = "u_password", nullable = false, length = 60)
 		private String password;
+		// 头像
+		@Column(name = "u_headpicture", nullable = true, length = 255)
+		private String headPicture;
 		// 电话
 		@Column(name = "u_tellphone", nullable = false, length = 60)
 		private String tellphone;
@@ -63,11 +66,18 @@ public class User {
 		// 是否删除(逻辑删除)
 		@Column(name = "isDelete", nullable = false, length = 60)
 		private Boolean isDelete;
+		
 		public String getUserId() {
-			return userid;
+			return userId;
 		}
 		public void setUserId(String userId) {
-			this.userid = userId;
+			this.userId = userId;
+		}
+		public String getHeadPicture() {
+			return headPicture;
+		}
+		public void setHeadPicture(String headPicture) {
+			this.headPicture = headPicture;
 		}
 		public String getUsername() {
 			return username;
@@ -153,14 +163,24 @@ public class User {
 		public void setIsDelete(Boolean isDelete) {
 			this.isDelete = isDelete;
 		}
-		public User(String userid, String username, String name, String password, String tellphone, String age,
-				String sex, String address, String qq, String email, String type, Date userRegisterTime, String status,
-				String remark, Boolean isDelete) {
+		
+		@Override
+		public String toString() {
+			return "User [userId=" + userId + ", username=" + username + ", name=" + name + ", password=" + password
+					+ ", headPicture=" + headPicture + ", tellphone=" + tellphone + ", age=" + age + ", sex=" + sex
+					+ ", address=" + address + ", qq=" + qq + ", email=" + email + ", type=" + type
+					+ ", userRegisterTime=" + userRegisterTime + ", status=" + status + ", remark=" + remark
+					+ ", isDelete=" + isDelete + "]";
+		}
+		public User(String userId, String username, String name, String password, String headPicture, String tellphone,
+				String age, String sex, String address, String qq, String email, String type, Date userRegisterTime,
+				String status, String remark, Boolean isDelete) {
 			super();
-			this.userid = userid;
+			this.userId = userId;
 			this.username = username;
 			this.name = name;
 			this.password = password;
+			this.headPicture = headPicture;
 			this.tellphone = tellphone;
 			this.age = age;
 			this.sex = sex;
@@ -172,13 +192,6 @@ public class User {
 			this.status = status;
 			this.remark = remark;
 			this.isDelete = isDelete;
-		}
-		@Override
-		public String toString() {
-			return "user [userid=" + userid + ", username=" + username + ", name=" + name + ", password=" + password
-					+ ", tellphone=" + tellphone + ", age=" + age + ", sex=" + sex + ", address=" + address + ", qq="
-					+ qq + ", email=" + email + ", type=" + type + ", userRegisterTime=" + userRegisterTime
-					+ ", status=" + status + ", remark=" + remark + ", isDelete=" + isDelete + "]";
 		}
 		public User() {
 			

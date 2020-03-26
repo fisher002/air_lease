@@ -3,11 +3,9 @@ package com.air.lease.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.air.lease.domain.User;
+import com.air.lease.domain.LeaseInfo;
 
 @Repository
-public interface UserRepositorys extends JpaRepository<User,String> {
+public interface LeaseInfoRepository extends JpaRepository<LeaseInfo, String>{
 
-	public User findByUserId(String userId);
-	
 }

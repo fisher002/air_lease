@@ -4,7 +4,7 @@ import com.air.lease.domain.User;
 
 public interface UserService {
 
-	public User findById(String userid);
+	public User findById(String userId);
 	
 	public String updateUser(User user);
 	

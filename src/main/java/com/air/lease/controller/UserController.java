@@ -20,8 +20,8 @@ public class UserController {
 	private UserService userService;
 	@ResponseBody
 	@PostMapping("/find")
-	public User findById(@RequestParam(name = "userId",required = true)String userid) {
-		User user = this.userService.findById(userid);
+	public User findById(@RequestParam(name = "userId",required = true)String userId) {
+		User user = this.userService.findById(userId);
 		return user == null ? null : user;
 	}
 	

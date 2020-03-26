@@ -14,9 +14,9 @@ public class UserServiceImpl implements UserService {
 	private UserRepositorys userRepositorys;
 	
 	@Override
-	public User findById(String userid) {
+	public User findById(String userId) {
 		// TODO 自动生成的方法存根
-		User user = this.userRepositorys.findByUserid(userid);
+		User user = this.userRepositorys.findByUserId(userId);
 		return user == null ? null : user;
 	}
 
@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public String updateUserPassword(String userId, String oldPassword, String newPassword) {
 		// TODO 自动生成的方法存根
-		User user = this.userRepositorys.findByUserid(userId);
+		User user = this.userRepositorys.findByUserId(userId);
 		if(user == null) {
 			return "error";
 		}
