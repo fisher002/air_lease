@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,6 +49,19 @@ public class AirController {
 	@ResponseBody
 	public String addLeaseInfo(@RequestBody LeaseInfo info) {
 		return this.airService.addLeaseInfo(info);
+	}
+	
+	@GetMapping("/lease/info")
+	@ResponseBody
+	public List<LeaseInfo> searchInfo(
+			// required 可不可为空 默认为true
+			@RequestParam(name = "userId", required = false) String userId,
+			// defaultValue没有此参数时，将页码强制设置为0，因为spring data里面的分页都是从0开始的
+			@RequestParam(name = "pageNumber", defaultValue = "0") int pageNumber) {
+		
+		Page<LeaseInfo> page = this.airService.searchInfo(userId, pageNumber);
+		List<LeaseInfo> list = page.getContent();
+		return list;
 	}
 
 }

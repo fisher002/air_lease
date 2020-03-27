@@ -64,5 +64,20 @@ public class AirServiceImpl implements AirService {
 		}
 		return "100001";
 	}
+	
+	// 查询租赁记录
+	@Override
+	public Page<LeaseInfo> searchInfo(String userId, int pageNumber) {
+		// TODO 自动生成的方法存根
+		// 封装分页条件 pageNumber:页码
+		Pageable pageable = PageRequest.of(pageNumber, 10);
+		Page<LeaseInfo> page;;
+		if(StringUtils.isEmpty(userId)) {
+			page = this.leaseInfoRepository.findByIsDeleteFalse(pageable);
+		}else {
+			page = this.leaseInfoRepository.findByIsDeleteFalseAndUserId(userId, pageable);
+		}
+		return page;
+	}
 
 }

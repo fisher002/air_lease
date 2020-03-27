@@ -15,5 +15,7 @@ public interface AirService {
 	AirConditioner findByairId(String airId);
 	
 	String addLeaseInfo(LeaseInfo info);
+	
+	Page<LeaseInfo> searchInfo(String userId, int pageNumber);
 
 }

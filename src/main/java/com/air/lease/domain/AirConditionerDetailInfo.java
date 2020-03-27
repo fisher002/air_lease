@@ -24,10 +24,14 @@ public class AirConditionerDetailInfo {
 	@Column(name = "air_id", nullable = false, length = 60)
 	private String airId;
 
+	// 空调名称
+	@Column(name = "air_name", nullable = false, length = 255)
+	private String airName;
+
 	// 描述
 	@Column(name = "air_describe", nullable = false, length = 255)
 	private String airDescribe;
-	
+
 	// 提示
 	@Column(name = "air_tips", nullable = false, length = 255)
 	private String airTips;
@@ -39,11 +43,11 @@ public class AirConditionerDetailInfo {
 	// 押金
 	@Column(name = "air_deposit", nullable = false, length = 60)
 	private Integer airDeposit;
-	
+
 	// 库存
 	@Column(name = "air_stock", nullable = false, length = 10)
 	private Integer airStock;
-	
+
 	// 入库时间
 	@Column(name = "air_put_date", nullable = false)
 	private Date airPutDate;
@@ -66,6 +70,14 @@ public class AirConditionerDetailInfo {
 
 	public void setAirId(String airId) {
 		this.airId = airId;
+	}
+
+	public String getAirName() {
+		return airName;
+	}
+
+	public void setAirName(String airName) {
+		this.airName = airName;
 	}
 
 	public String getAirDescribe() {
@@ -126,16 +138,17 @@ public class AirConditionerDetailInfo {
 
 	@Override
 	public String toString() {
-		return "AirConditionerDetailInfo [airDetailId=" + airDetailId + ", airId=" + airId + ", airDescribe="
-				+ airDescribe + ", airTips=" + airTips + ", airRent=" + airRent + ", airDeposit=" + airDeposit
-				+ ", airStock=" + airStock + ", airPutDate=" + airPutDate + ", isDelete=" + isDelete + "]";
+		return "AirConditionerDetailInfo [airDetailId=" + airDetailId + ", airId=" + airId + ", airName=" + airName
+				+ ", airDescribe=" + airDescribe + ", airTips=" + airTips + ", airRent=" + airRent + ", airDeposit="
+				+ airDeposit + ", airStock=" + airStock + ", airPutDate=" + airPutDate + ", isDelete=" + isDelete + "]";
 	}
 
-	public AirConditionerDetailInfo(String airDetailId, String airId, String airDescribe, String airTips,
-			Integer airRent, Integer airDeposit, Integer airStock, Date airPutDate, Boolean isDelete) {
+	public AirConditionerDetailInfo(String airDetailId, String airId, String airName, String airDescribe,
+			String airTips, Integer airRent, Integer airDeposit, Integer airStock, Date airPutDate, Boolean isDelete) {
 		super();
 		this.airDetailId = airDetailId;
 		this.airId = airId;
+		this.airName = airName;
 		this.airDescribe = airDescribe;
 		this.airTips = airTips;
 		this.airRent = airRent;
@@ -146,6 +159,6 @@ public class AirConditionerDetailInfo {
 	}
 
 	public AirConditionerDetailInfo() {
-		
+
 	}
 }
