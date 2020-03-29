@@ -56,6 +56,10 @@ public class LeaseInfo {
 	// 操作时间
 	@Column(name = "lease_edit_date", nullable = false, length = 60)
 	private Date leaseEditDate;
+	
+	// 状态
+	@Column(name = "lease_status", nullable = false)
+	private String leaseStatus;
 
 	// 是否删除
 	@Column(name = "isDelete", nullable = false)
@@ -149,16 +153,25 @@ public class LeaseInfo {
 		this.isDelete = isDelete;
 	}
 
+	public String getLeaseStatus() {
+		return leaseStatus;
+	}
+
+	public void setLeaseStatus(String leaseStatus) {
+		this.leaseStatus = leaseStatus;
+	}
+
 	@Override
 	public String toString() {
 		return "LeaseInfo [leaseId=" + leaseId + ", airId=" + airId + ", airName=" + airName + ", userId=" + userId
 				+ ", username=" + username + ", leaseStartDate=" + leaseStartDate + ", leaseEndDate=" + leaseEndDate
 				+ ", leaseNumber=" + leaseNumber + ", leasePriceSum=" + leasePriceSum + ", leaseEditDate="
-				+ leaseEditDate + ", isDelete=" + isDelete + "]";
+				+ leaseEditDate + ", leaseStatus=" + leaseStatus + ", isDelete=" + isDelete + "]";
 	}
 
 	public LeaseInfo(String leaseId, String airId, String airName, String userId, String username, Date leaseStartDate,
-			Date leaseEndDate, Integer leaseNumber, Integer leasePriceSum, Date leaseEditDate, Boolean isDelete) {
+			Date leaseEndDate, Integer leaseNumber, Integer leasePriceSum, Date leaseEditDate, String leaseStatus,
+			Boolean isDelete) {
 		super();
 		this.leaseId = leaseId;
 		this.airId = airId;
@@ -170,6 +183,7 @@ public class LeaseInfo {
 		this.leaseNumber = leaseNumber;
 		this.leasePriceSum = leasePriceSum;
 		this.leaseEditDate = leaseEditDate;
+		this.leaseStatus = leaseStatus;
 		this.isDelete = isDelete;
 	}
 

@@ -17,5 +17,9 @@ public interface AirService {
 	String addLeaseInfo(LeaseInfo info);
 	
 	Page<LeaseInfo> searchInfo(String userId, int pageNumber);
+	
+	String updateLeaseInfo(LeaseInfo info);
+	
+	LeaseInfo findByLeaseId(String leaseId);
 
 }

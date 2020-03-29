@@ -79,5 +79,18 @@ public class AirServiceImpl implements AirService {
 		}
 		return page;
 	}
+	@Override
+	public String updateLeaseInfo(LeaseInfo info) {
+		// TODO 自动生成的方法存根
+		if(this.leaseInfoRepository.save(info) != null) {
+			return "100000";
+		}
+		return "100001";
+	}
+	@Override
+	public LeaseInfo findByLeaseId(String leaseId) {
+		// TODO 自动生成的方法存根
+		return this.leaseInfoRepository.findByLeaseId(leaseId);
+	}
 
 }

@@ -14,4 +14,6 @@ public interface LeaseInfoRepository extends JpaRepository<LeaseInfo, String>{
 
 	Page<LeaseInfo> findByIsDeleteFalse(Pageable pageable);
 
+	LeaseInfo findByLeaseId(String leaseId);
+
 }
