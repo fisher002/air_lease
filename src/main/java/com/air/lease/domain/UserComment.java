@@ -12,7 +12,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "user_comment")
-public class userComment {
+public class UserComment {
 
 	// 主键 用uuid 字符串 自动生成
 	@Id
@@ -95,7 +95,7 @@ public class userComment {
 				+ commentContent + ", commentDate=" + commentDate + ", isDelete=" + isDelete + "]";
 	}
 
-	public userComment(String commentId, String airId, String userId, String commentContent, Date commentDate,
+	public UserComment(String commentId, String airId, String userId, String commentContent, Date commentDate,
 			Boolean isDelete) {
 		super();
 		this.commentId = commentId;
@@ -106,7 +106,7 @@ public class userComment {
 		this.isDelete = isDelete;
 	}
 
-	public userComment() {
+	public UserComment() {
 		
 	}
 

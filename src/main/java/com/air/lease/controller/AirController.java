@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.air.lease.domain.AirConditioner;
 import com.air.lease.domain.AirConditionerDetailInfo;
 import com.air.lease.domain.LeaseInfo;
+import com.air.lease.domain.ResultMsg;
+import com.air.lease.domain.UserComment;
 import com.air.lease.service.AirService;
 
 @Controller
@@ -81,6 +84,20 @@ public class AirController {
 		Page<LeaseInfo> page = this.airService.searchInfo(userId, pageNumber);
 		List<LeaseInfo> list = page.getContent();
 		return list;
+	}
+	
+	// 评论接口
+	@PutMapping("/leasecomment/add")
+	@ResponseBody
+	public String addComment(@RequestBody UserComment comment) {
+		return this.airService.addUserComment(comment);
+	}
+	
+	@PostMapping("/leasecomment/list")
+	@ResponseBody
+	public ResultMsg findAllLeaseComment(@RequestParam(name = "airId", required = false) String airId,
+			@RequestParam(name = "pageNumber", defaultValue = "0") int pageNumber) {
+		return this.airService.findAllByairId(airId, pageNumber);
 	}
 
 }

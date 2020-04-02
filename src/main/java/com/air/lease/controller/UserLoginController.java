@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.air.lease.domain.ResultMsg;
 import com.air.lease.domain.User;
 import com.air.lease.service.UserLoginService;
 
@@ -51,6 +52,20 @@ public class UserLoginController {
 		User user = this.userLoginService.checkUserLogin(tellphone, password);
 		// 密码加密再返回(未处理)
 		return user == null ? null : user;
+	}
+	
+	// 登录验证
+	@ResponseBody
+	@PostMapping("/login/user/test")
+	public ResultMsg test(@RequestParam(name = "tellphone", required = true) String tellphone,
+			@RequestParam(value = "password", required = true) String password) {
+		ResultMsg msg = new ResultMsg();
+		User user = this.userLoginService.checkUserLogin(tellphone, password);
+		msg.setMessage("查询用户成功");
+		msg.setCode(200);
+		msg.setData(user);
+		// 密码加密再返回(未处理)
+		return msg == null ? null : msg;
 	}
 
 }
