@@ -5,6 +5,7 @@ public class ResultMsg {
 	private String message;
 	private int code;
 	private Object data;
+	private Long total;
 	public String getMessage() {
 		return message;
 	}
@@ -23,11 +24,18 @@ public class ResultMsg {
 	public void setData(Object data) {
 		this.data = data;
 	}
-	public ResultMsg(String message, int code, Object data) {
+	public Long getTotal() {
+		return total;
+	}
+	public void setTotal(Long total) {
+		this.total = total;
+	}
+	public ResultMsg(String message, int code, Object data, Long total) {
 		super();
 		this.message = message;
 		this.code = code;
 		this.data = data;
+		this.total = total;
 	}
 	public ResultMsg() {
 		

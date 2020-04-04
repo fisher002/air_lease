@@ -22,10 +22,10 @@ public class AdminLoginController {
 	public Admin checkAdminLogin(
 			@RequestParam(name = "tellphone", required = true) String tellphone,
 			@RequestParam(value = "password", required = true) String password) {
-//		return "100000";
-//		System.out.println("账号："+tellphone+" 密码："+password);
 		Admin admin = this.adminLoginService.checkLoginAdmin(tellphone, password);
 		if(admin == null) {
+			return null;
+		}else if("editing".equals(admin.getAdminStatus())) {
 			return null;
 		}else {
 			admin.setAdminPassWord("");

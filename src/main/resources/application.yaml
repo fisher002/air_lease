@@ -10,7 +10,14 @@ spring:
       generate-ddl: true
       properties:
       # 设置一个方言，用于自动加上MySQL的引擎名称，默认MyISAM不支持事务，不推荐使用。
-         hibernate.dialect: org.hibernate.dialect.MySQL57Dialect
+         hibernate:
+            dialect: org.hibernate.dialect.MySQL57Dialect
+            jdbc:
+               # 最大修改数
+               batch_size: 500
+               batch_versioned_data: true
+               order_inserts: true
+               order_updates: true
    main:
       #当遇到同样名字的时候，是否允许覆盖注册
       allow-bean-definition-overriding: true

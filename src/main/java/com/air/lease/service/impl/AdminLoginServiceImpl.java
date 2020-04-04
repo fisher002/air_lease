@@ -14,7 +14,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 	private AdminLoginRepository adminLoginRepository;
 	@Override
 	public Admin checkLoginAdmin(String adminTellPhone, String adminPassWord) {
-		// TODO 自动生成的方法存根 可能存在空指针!!!
+		// TODO 自动生成的方法存根
 		Admin admin = this.adminLoginRepository.findByAdminTellPhoneAndAdminPassWord(adminTellPhone, adminPassWord);
 		return admin;
 	}

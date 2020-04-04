@@ -17,55 +17,28 @@ import com.air.lease.service.UserLoginService;
 @Controller
 @RequestMapping(value = "/sk")
 public class UserLoginController {
-	
+
 	@Autowired
 	private UserLoginService userLoginService;
-	
+
 	// 注册
 	@ResponseBody
 	@PostMapping("/register/user")
-	public String registerUser(@RequestBody User request) {
-//		System.out.println(request);
-		// 检测账号是否已经存在
-		
-		// 默认时间 状态 类型
+	public ResultMsg registerUser(@RequestBody User request) {
+		// 默认时间
 		Date date = new Date();
-		if(request.getUserRegisterTime() == null) {
+		if (request.getUserRegisterTime() == null) {
 			request.setUserRegisterTime(date);
 		}
-		request.setIsDelete(false);
-		request.setStatus("available");
-		request.setType("ordinary");
-		String result = userLoginService.registerUser(request);
-		if(result == "success") {
-			return "ok";
-		}
-		return "fail";
+		return this.userLoginService.registerUser(request);
 	}
-	
+
 	// 登录验证
 	@ResponseBody
 	@PostMapping("/login/user")
-	public User checkUserLogin(
-			@RequestParam(name = "tellphone", required = true) String tellphone,
+	public ResultMsg checkUserLogin(@RequestParam(name = "tellphone", required = true) String tellphone,
 			@RequestParam(value = "password", required = true) String password) {
-		User user = this.userLoginService.checkUserLogin(tellphone, password);
-		// 密码加密再返回(未处理)
-		return user == null ? null : user;
-	}
-	
-	// 登录验证
-	@ResponseBody
-	@PostMapping("/login/user/test")
-	public ResultMsg test(@RequestParam(name = "tellphone", required = true) String tellphone,
-			@RequestParam(value = "password", required = true) String password) {
-		ResultMsg msg = new ResultMsg();
-		User user = this.userLoginService.checkUserLogin(tellphone, password);
-		msg.setMessage("查询用户成功");
-		msg.setCode(200);
-		msg.setData(user);
-		// 密码加密再返回(未处理)
-		return msg == null ? null : msg;
+		return this.userLoginService.checkUserLogin(tellphone, password);
 	}
 
 }

@@ -1,5 +1,7 @@
 package com.air.lease.domain;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -41,11 +43,15 @@ public class Admin {
 
 	// 用户注册时间
 	@Column(name = "a_register_time", nullable = false, length = 60)
-	private String adminRegisterTime;
+	private Date adminRegisterTime;
 
 	// 用户状态(默认可用:available)
 	@Column(name = "a_status", nullable = false, length = 60)
 	private String adminStatus;
+	
+	// 是否删除
+	@Column(name = "isDelete", nullable = false)
+	private Boolean isDelete;
 
 	public String getAdminId() {
 		return adminId;
@@ -95,15 +101,15 @@ public class Admin {
 		this.adminRemark = adminRemark;
 	}
 
-	public String getAdminRegisterTime() {
+	public Date getAdminRegisterTime() {
 		return adminRegisterTime;
 	}
 
-	public void setAdminRegisterTime(String adminRegisterTime) {
+	public void setAdminRegisterTime(Date adminRegisterTime) {
 		this.adminRegisterTime = adminRegisterTime;
 	}
 
-	public String isAdminStatus() {
+	public String getAdminStatus() {
 		return adminStatus;
 	}
 
@@ -111,9 +117,38 @@ public class Admin {
 		this.adminStatus = adminStatus;
 	}
 
-	
-	// 是否已经被停用
-//	@Column(nullable = false, length = 2)
-//	private boolean disabled;
+	public Boolean getIsDelete() {
+		return isDelete;
+	}
+
+	public void setIsDelete(Boolean isDelete) {
+		this.isDelete = isDelete;
+	}
+
+	@Override
+	public String toString() {
+		return "Admin [adminId=" + adminId + ", adminUserName=" + adminUserName + ", adminPassWord=" + adminPassWord
+				+ ", adminName=" + adminName + ", adminTellPhone=" + adminTellPhone + ", adminRemark=" + adminRemark
+				+ ", adminRegisterTime=" + adminRegisterTime + ", adminStatus=" + adminStatus + ", isDelete=" + isDelete
+				+ "]";
+	}
+
+	public Admin(String adminId, String adminUserName, String adminPassWord, String adminName, String adminTellPhone,
+			String adminRemark, Date adminRegisterTime, String adminStatus, Boolean isDelete) {
+		super();
+		this.adminId = adminId;
+		this.adminUserName = adminUserName;
+		this.adminPassWord = adminPassWord;
+		this.adminName = adminName;
+		this.adminTellPhone = adminTellPhone;
+		this.adminRemark = adminRemark;
+		this.adminRegisterTime = adminRegisterTime;
+		this.adminStatus = adminStatus;
+		this.isDelete = isDelete;
+	}
+
+	public Admin() {
+		
+	}
 	
 }
