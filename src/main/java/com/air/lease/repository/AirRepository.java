@@ -1,5 +1,7 @@
 package com.air.lease.repository;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,5 +17,7 @@ public interface AirRepository extends JpaRepository<AirConditioner,String> {
 	Page<AirConditioner> findByIsDeleteFalse(Pageable pageable);
 
 	Page<AirConditioner> findByIsDeleteFalseAndAirNameContaining(String keyword, Pageable pageable);
+
+	List<AirConditioner> findAllByIsDeleteFalse();
 
 }
