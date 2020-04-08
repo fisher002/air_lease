@@ -73,6 +73,23 @@ public class AirServiceImpl implements AirService {
 		return info;
 	}
 
+	// 获取未有详情的空调(客户端)
+	@Override
+	public ResultMsg findAllAir(List<String> airIds) {
+		// TODO 自动生成的方法存根
+		ResultMsg msg = new ResultMsg();
+		List<AirConditioner> list = this.airRepository.findAllById(airIds);
+		if (list.size() > 0) {
+			msg.setCode(200);
+			msg.setMessage("获取空调数据成功");
+			msg.setData(list);
+			return msg;
+		}
+		msg.setCode(500);
+		msg.setMessage("获取空调数据失败");
+		return msg;
+	}
+
 	// 查找空调(管理端)
 	@Override
 	public ResultMsg findAirById(String airId) {
@@ -89,17 +106,17 @@ public class AirServiceImpl implements AirService {
 		msg.setMessage("获取空调数据失败");
 		return msg;
 	}
-	
+
 	// 删除空调(管理端)
 	@Override
 	public ResultMsg deleteAirs(List<String> airIds) {
 		// TODO 自动生成的方法存根
 		ResultMsg msg = new ResultMsg();
 		List<AirConditioner> list = this.airRepository.findAllById(airIds);
-		for(AirConditioner air : list) {
+		for (AirConditioner air : list) {
 			air.setIsDelete(true);
 		}
-		if(this.airRepository.saveAll(list) != null) {
+		if (this.airRepository.saveAll(list) != null) {
 			msg.setCode(200);
 			msg.setMessage("删除成功");
 			return msg;
@@ -108,13 +125,13 @@ public class AirServiceImpl implements AirService {
 		msg.setMessage("删除失败");
 		return msg;
 	}
-	
+
 	// 更新/新增空调(管理端)
 	@Override
 	public ResultMsg updateAir(AirConditioner air) {
 		// TODO 自动生成的方法存根
 		ResultMsg msg = new ResultMsg();
-		if(this.airRepository.save(air) != null) {
+		if (this.airRepository.save(air) != null) {
 			msg.setCode(200);
 			msg.setMessage("操作成功");
 			return msg;
@@ -218,22 +235,24 @@ public class AirServiceImpl implements AirService {
 			}
 			msg.setCode(200);
 			msg.setMessage("success");
+			msg.setTotal(page.getTotalElements());
 			msg.setData(l);
+			msg.setPages(page.getTotalPages());
 			return msg;
 		}
 		msg.setCode(500);
 		msg.setMessage("未知错误");
 		return msg;
 	}
-	
+
 	@Override
 	public ResultMsg findAllAirIds() {
 		// TODO 自动生成的方法存根 查询所有空调ID
 		ResultMsg msg = new ResultMsg();
 		List<AirConditioner> airs = this.airRepository.findAllByIsDeleteFalse();
 		List<String> ids = new ArrayList<String>();
-		if(airs.size() > 0) {
-			for(AirConditioner air : airs) {
+		if (airs.size() > 0) {
+			for (AirConditioner air : airs) {
 				ids.add(air.getAirId());
 			}
 			msg.setCode(200);
@@ -252,8 +271,8 @@ public class AirServiceImpl implements AirService {
 		ResultMsg msg = new ResultMsg();
 		List<AirConditionerDetailInfo> infos = this.airInfoRepository.findAllByIsDeleteFalse();
 		List<String> ids = new ArrayList<String>();
-		if(infos.size() > 0) {
-			for(AirConditionerDetailInfo info : infos) {
+		if (infos.size() > 0) {
+			for (AirConditionerDetailInfo info : infos) {
 				ids.add(info.getAirId());
 			}
 			msg.setCode(200);
@@ -273,14 +292,14 @@ public class AirServiceImpl implements AirService {
 		ResultMsg msg = new ResultMsg();
 		Pageable pageable = PageRequest.of(pageNumber, 10);
 		Page<AirConditionerDetailInfo> page;
-		if(StringUtils.isEmpty(keyword)) {
+		if (StringUtils.isEmpty(keyword)) {
 			page = this.airInfoRepository.findByIsDeleteFalse(pageable);
 			msg.setCode(200);
 			msg.setMessage("获取详情列表成功");
 			msg.setTotal(page.getTotalElements());
 			msg.setData(page.getContent());
 			return msg;
-		}else {
+		} else {
 			page = this.airInfoRepository.findByIsDeleteFalseAndAirNameContaining(keyword, pageable);
 			msg.setCode(200);
 			msg.setMessage("获取详情列表成功");
@@ -295,7 +314,7 @@ public class AirServiceImpl implements AirService {
 		// TODO 自动生成的方法存根
 		ResultMsg msg = new ResultMsg();
 		AirConditionerDetailInfo info = this.airInfoRepository.findByAirId(airId);
-		if(info != null) {
+		if (info != null) {
 			msg.setCode(200);
 			msg.setMessage("success");
 			msg.setData(info);
@@ -311,8 +330,8 @@ public class AirServiceImpl implements AirService {
 		// TODO 自动生成的方法存根
 		ResultMsg msg = new ResultMsg();
 		List<AirConditionerDetailInfo> list = this.airInfoRepository.findAllById(airDetailIds);
-		if(list.size() > 0) {
-			for(AirConditionerDetailInfo info : list) {
+		if (list.size() > 0) {
+			for (AirConditionerDetailInfo info : list) {
 				info.setIsDelete(true);
 			}
 			this.airInfoRepository.saveAll(list);
@@ -329,7 +348,7 @@ public class AirServiceImpl implements AirService {
 	public ResultMsg updateAirDetailInfo(AirConditionerDetailInfo air) {
 		// TODO 自动生成的方法存根
 		ResultMsg msg = new ResultMsg();
-		if(this.airInfoRepository.save(air) != null) {
+		if (this.airInfoRepository.save(air) != null) {
 			msg.setCode(200);
 			msg.setMessage("操作成功");
 			return msg;
@@ -344,7 +363,7 @@ public class AirServiceImpl implements AirService {
 		// TODO 自动生成的方法存根
 		ResultMsg msg = new ResultMsg();
 		AirConditionerDetailInfo info = this.airInfoRepository.findByAirDetailIdAndIsDeleteFalse(airDetailId);
-		if(info != null) {
+		if (info != null) {
 			msg.setCode(200);
 			msg.setMessage("获取成功");
 			msg.setData(info);
@@ -352,6 +371,96 @@ public class AirServiceImpl implements AirService {
 		}
 		msg.setCode(500);
 		msg.setMessage("获取失败");
+		return msg;
+	}
+
+	// 租赁信息(管理端)
+	@Override
+	public ResultMsg searchAirLeaseInfo(String airName, String username, int pageNumber) {
+		// TODO 自动生成的方法存根
+		ResultMsg msg = new ResultMsg();
+		Pageable pageable = PageRequest.of(pageNumber, 10);
+		Page<LeaseInfo> page;
+		if (StringUtils.isEmpty(airName) && StringUtils.isEmpty(username)) {
+			page = this.leaseInfoRepository.findByIsDeleteFalse(pageable);
+			msg.setCode(200);
+			msg.setMessage("获取租赁列表成功");
+			msg.setTotal(page.getTotalElements());
+			msg.setData(page.getContent());
+			return msg;
+		} else {
+			if (StringUtils.isEmpty(username)) {
+				page = this.leaseInfoRepository.findByIsDeleteFalseAndAirNameContaining(airName, pageable);
+				msg.setCode(200);
+				msg.setMessage("获取租赁列表成功");
+				msg.setTotal(page.getTotalElements());
+				msg.setData(page.getContent());
+				return msg;
+			} else if (StringUtils.isEmpty(airName)) {
+				page = this.leaseInfoRepository.findByIsDeleteFalseAndUsernameContaining(username, pageable);
+				msg.setCode(200);
+				msg.setMessage("获取租赁列表成功");
+				msg.setTotal(page.getTotalElements());
+				msg.setData(page.getContent());
+				return msg;
+			} else {
+				page = this.leaseInfoRepository.findByIsDeleteFalseAndUsernameContainingAndAirNameContaining(airName,
+						username, pageable);
+				msg.setCode(200);
+				msg.setMessage("获取租赁列表成功");
+				msg.setTotal(page.getTotalElements());
+				msg.setData(page.getContent());
+				return msg;
+			}
+		}
+	}
+
+	@Override
+	public ResultMsg findAirLeaseInfoById(String leaseId) {
+		// TODO 自动生成的方法存根
+		ResultMsg msg = new ResultMsg();
+		LeaseInfo info = this.leaseInfoRepository.findByLeaseId(leaseId);
+		if (info != null) {
+			msg.setCode(200);
+			msg.setMessage("获取租赁信息成功");
+			msg.setData(info);
+			return msg;
+		}
+		msg.setCode(500);
+		msg.setMessage("获取租赁信息失败");
+		return msg;
+	}
+
+	@Override
+	public ResultMsg deleteAirLeaseInfos(List<String> leaseIds) {
+		// TODO 自动生成的方法存根
+		ResultMsg msg = new ResultMsg();
+		List<LeaseInfo> infos = this.leaseInfoRepository.findAllById(leaseIds);
+		if (infos.size() > 0) {
+			for (LeaseInfo info : infos) {
+				info.setIsDelete(true);
+			}
+			this.leaseInfoRepository.saveAll(infos);
+			msg.setCode(200);
+			msg.setMessage("删除成功");
+			return msg;
+		}
+		msg.setCode(500);
+		msg.setMessage("删除失败");
+		return msg;
+	}
+
+	@Override
+	public ResultMsg updateAirLeaseInfo(LeaseInfo info) {
+		// TODO 自动生成的方法存根
+		ResultMsg msg = new ResultMsg();
+		if (this.leaseInfoRepository.save(info) != null) {
+			msg.setCode(200);
+			msg.setMessage("操作成功");
+			return msg;
+		}
+		msg.setCode(500);
+		msg.setMessage("操作失败");
 		return msg;
 	}
 

@@ -29,6 +29,8 @@ public interface AirService {
 	// 空调(管理端)
 	ResultMsg findAllAirIds();
 	
+	ResultMsg findAllAir(List<String> airIds);
+	
 	ResultMsg findAllByairId(String airId, int pageNumber);
 
 	ResultMsg findAirById(String airId);
@@ -49,5 +51,14 @@ public interface AirService {
 	ResultMsg updateAirDetailInfo(AirConditionerDetailInfo air);
 	
 	ResultMsg getAirDetailInfo(String airDetailId);
+	
+	// 租赁信息(管理端)
+	ResultMsg searchAirLeaseInfo(String airName, String username, int pageNumber);
+
+	ResultMsg findAirLeaseInfoById(String leaseId);
+
+	ResultMsg deleteAirLeaseInfos(List<String> leaseIds);
+
+	ResultMsg updateAirLeaseInfo(LeaseInfo info);
 
 }

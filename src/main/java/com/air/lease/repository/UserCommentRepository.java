@@ -12,4 +12,10 @@ public interface UserCommentRepository extends JpaRepository<UserComment, String
 
 	Page<UserComment> findByAirIdAndIsDeleteFalse(String airId, Pageable pageable);
 
+	Page<UserComment> findByIsDeleteFalse(Pageable pageable);
+
+	Page<UserComment> findByIsDeleteFalseAndAirNameContaining(String airName, Pageable pageable);
+
+	UserComment findByCommentIdAndIsDeleteFalse(String commentId);
+
 }

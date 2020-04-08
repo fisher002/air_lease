@@ -16,10 +16,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.air.lease.domain.Admin;
 import com.air.lease.domain.AirConditioner;
 import com.air.lease.domain.AirConditionerDetailInfo;
+import com.air.lease.domain.LeaseInfo;
 import com.air.lease.domain.ResultMsg;
 import com.air.lease.domain.User;
+import com.air.lease.domain.UserComment;
 import com.air.lease.service.AdminService;
 import com.air.lease.service.AirService;
+import com.air.lease.service.UserCommentService;
 import com.air.lease.service.UserService;
 
 @Controller
@@ -32,6 +35,8 @@ public class AdminController {
 	private UserService userService;
 	@Autowired
 	private AirService airService;
+	@Autowired
+	private UserCommentService userCommentService;
 
 	// 管理员接口
 	// 获取管理员列表
@@ -142,12 +147,20 @@ public class AdminController {
 	public ResultMsg airIds() {
 		return this.airService.findAllAirIds();
 	}
+
 	@GetMapping("/admin/airinfo/ids")
 	@ResponseBody
 	public ResultMsg aieInfoIds() {
 		return this.airService.findAllAirDetailAirIds();
 	}
-	
+
+	// 获取上级空调信息
+	@PostMapping("/admin/airinfo/airs")
+	@ResponseBody
+	public ResultMsg getAllAirByIds(@RequestBody List<String> airIds) {
+		return this.airService.findAllAir(airIds);
+	}
+
 	// 管理空调详情接口
 	// 获取空调详情列表
 	@GetMapping("/admin/airdetail/list")
@@ -183,6 +196,67 @@ public class AdminController {
 	@ResponseBody
 	public ResultMsg updateAirDetail(@RequestBody AirConditionerDetailInfo air) {
 		return this.airService.updateAirDetailInfo(air);
+	}
+
+	// 管理租赁信息接口
+	// 获取租赁信息列表
+	@GetMapping("/admin/airlease/list")
+	@ResponseBody
+	public ResultMsg getAirLeaseList(@RequestParam(name = "airName", required = false) String airName,
+			@RequestParam(name = "username", required = false) String username,
+			@RequestParam(name = "pageNumber", defaultValue = "0") int pageNumber) {
+		return this.airService.searchAirLeaseInfo(airName, username, pageNumber);
+	}
+
+	// 获取单个租赁信息信息
+	@GetMapping("/admin/airlease/get")
+	@ResponseBody
+	public ResultMsg getAirLeaseInfoById(@RequestParam(name = "leaseId", required = false) String leaseId) {
+		return this.airService.findAirLeaseInfoById(leaseId);
+	}
+
+	// 删除租赁信息(单个/多个)
+	@PostMapping("/admin/airlease/delete")
+	@ResponseBody
+	public ResultMsg deleteAirLeaseByIds(@RequestBody List<String> leaseIds) {
+		return this.airService.deleteAirLeaseInfos(leaseIds);
+	}
+
+	// 更新/新增租赁信息
+	@PutMapping("/admin/airlease/update")
+	@ResponseBody
+	public ResultMsg updateAirLease(@RequestBody LeaseInfo info) {
+		return this.airService.updateAirLeaseInfo(info);
+	}
+
+	// 管理用户评论接口
+	// 获取用户评论列表
+	@GetMapping("/admin/usercom/list")
+	@ResponseBody
+	public ResultMsg getUserComList(@RequestParam(name = "keyword", required = false) String airName,
+			@RequestParam(name = "pageNumber", defaultValue = "0") int pageNumber) {
+		return this.userCommentService.searchUserComment(airName, pageNumber);
+	}
+
+	// 获取单个用户评论信息
+	@GetMapping("/admin/usercom/get")
+	@ResponseBody
+	public ResultMsg getUserComById(@RequestParam(name = "commentId", required = false) String commentId) {
+		return this.userCommentService.findUserCommentById(commentId);
+	}
+
+	// 删除用户评论(单个/多个)
+	@PostMapping("/admin/usercom/delete")
+	@ResponseBody
+	public ResultMsg deleteUserComByIds(@RequestBody List<String> commentIds) {
+		return this.userCommentService.deleteUserComments(commentIds);
+	}
+
+	// 更新/新增用户评论
+	@PutMapping("/admin/usercom/update")
+	@ResponseBody
+	public ResultMsg updateUserCom(@RequestBody UserComment com) {
+		return this.userCommentService.updateUserComment(com);
 	}
 
 }
