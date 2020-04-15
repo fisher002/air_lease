@@ -173,6 +173,7 @@ public class AirServiceImpl implements AirService {
 			msg.setMessage("获取租赁数据成功");
 			msg.setData(page.getContent());
 			msg.setTotal(page.getTotalElements());
+			msg.setPages(page.getTotalPages());
 			return msg;
 		} else {
 			page = this.leaseInfoRepository.findByIsDeleteFalseAndUserId(userId, pageable);
@@ -180,6 +181,7 @@ public class AirServiceImpl implements AirService {
 			msg.setMessage("获取租赁数据成功");
 			msg.setData(page.getContent());
 			msg.setTotal(page.getTotalElements());
+			msg.setPages(page.getTotalPages());
 			return msg;
 		}
 	}
