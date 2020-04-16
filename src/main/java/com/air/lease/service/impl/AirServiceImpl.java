@@ -217,34 +217,65 @@ public class AirServiceImpl implements AirService {
 		// TODO 自动生成的方法存根
 		ResultMsg msg = new ResultMsg();
 		Pageable pageable = PageRequest.of(pageNumber, 10);
-		Page<UserComment> page = this.commentRepository.findByAirIdAndIsDeleteFalse(airId, pageable);
-		if (page.getContent() != null) {
-			List<UserComment> list = page.getContent();
-			// 存所有的组装信息
-			List<Object> l = new ArrayList<Object>();
-			for (UserComment u : list) {
-				// 每一项
-				UserCommentMsg m1 = new UserCommentMsg();
-				// 组装的用户信息
-				UserMsg m2 = new UserMsg();
-				// 用户信息
-				User user = this.userRepositorys.findByUserId(u.getUserId());
-				m2.setName(user.getName());
-				m2.setHeadPiuture(user.getHeadPicture());
-				m1.setUserMessage(m2);
-				m1.setUserComment(u);
-				l.add(m1);
+		Page<UserComment> page;
+		if (StringUtils.isEmpty(airId)) {
+			page = this.commentRepository.findByIsDeleteFalse(pageable);
+			synchronized (page) {
+				List<UserComment> list = page.getContent();
+				// 存所有的组装信息
+				List<Object> l = new ArrayList<Object>();
+				for (UserComment u : list) {
+					// 每一项
+					UserCommentMsg m1 = new UserCommentMsg();
+					// 组装的用户信息
+					UserMsg m2 = new UserMsg();
+					// 用户信息
+					User user = this.userRepositorys.findByUserId(u.getUserId());
+					m2.setName(user.getName());
+					m2.setHeadPiuture(user.getHeadPicture());
+					m1.setUserMessage(m2);
+					m1.setUserComment(u);
+					l.add(m1);
+				}
+				msg.setCode(200);
+				msg.setMessage("获取用户评论成功");
+				msg.setTotal(page.getTotalElements());
+				msg.setData(l);
+				msg.setPages(page.getTotalPages());
+				return msg;
 			}
-			msg.setCode(200);
-			msg.setMessage("success");
-			msg.setTotal(page.getTotalElements());
-			msg.setData(l);
-			msg.setPages(page.getTotalPages());
-			return msg;
+		} else {
+			page = this.commentRepository.findByAirIdAndIsDeleteFalse(airId, pageable);
+			synchronized (page) {
+				if (page.getContent() != null) {
+					List<UserComment> list = page.getContent();
+					// 存所有的组装信息
+					List<Object> l = new ArrayList<Object>();
+					for (UserComment u : list) {
+						// 每一项
+						UserCommentMsg m1 = new UserCommentMsg();
+						// 组装的用户信息
+						UserMsg m2 = new UserMsg();
+						// 用户信息
+						User user = this.userRepositorys.findByUserId(u.getUserId());
+						m2.setName(user.getName());
+						m2.setHeadPiuture(user.getHeadPicture());
+						m1.setUserMessage(m2);
+						m1.setUserComment(u);
+						l.add(m1);
+					}
+					msg.setCode(200);
+					msg.setMessage("获取用户评论成功");
+					msg.setTotal(page.getTotalElements());
+					msg.setData(l);
+					msg.setPages(page.getTotalPages());
+					return msg;
+				}
+				msg.setCode(500);
+				msg.setMessage("获取用户评论失败");
+				return msg;
+			}
 		}
-		msg.setCode(500);
-		msg.setMessage("未知错误");
-		return msg;
 	}
 
 	@Override
